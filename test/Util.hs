@@ -33,5 +33,5 @@ instance Show Bus16 where
     show (Bus16 a0 a1 a2 a3 a4 a5 a6 a7 a8 a9 a10 a11 a12 a13 a14 a15) = concat (show <$> [a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15])
 
 bus16 :: Text -> Bus16
-bus16 values = Bus16 (bit (ls !! 0)) (bit (ls !! 1)) (bit (ls !! 2)) (bit (ls !! 3)) (bit (ls !! 4)) (bit (ls !! 5)) (bit (ls !! 6)) (bit (ls !! 7)) (bit (ls !! 8)) (bit (ls !! 9)) (bit (ls !! 10)) (bit (ls !! 11)) (bit (ls !! 12)) (bit (ls !! 13)) (bit (ls !! 14)) (bit (ls !! 15))
-    where ls = chunksOf 1 values
+bus16 values = Bus16 (ls !! 0) (ls !! 1) (ls !! 2) (ls !! 3) (ls !! 4) (ls !! 5) (ls !! 6) (ls !! 7) (ls !! 8) (ls !! 9) (ls !! 10) (ls !! 11) (ls !! 12) (ls !! 13) (ls !! 14) (ls !! 15)
+    where ls = bit <$> chunksOf 1 values

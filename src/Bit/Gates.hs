@@ -1,4 +1,13 @@
-module Bit.Gates where
+module Bit.Gates
+    ( nand
+    , not
+    , and
+    , or
+    , xor
+    , mux
+    , dmux
+    , Selector
+    ) where
 
 import Bit.Data (Binary (One, Zero))
 
