@@ -5,8 +5,8 @@ module GatesTest
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Util.Binary (bit)
-import Gates
+import Util (bit)
+import Bit.Gates
 
 -- tests
 test_gates :: TestTree

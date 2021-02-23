@@ -1,6 +1,6 @@
-module Gates where
+module Bit.Gates where
 
-import Binary
+import Bit.Data (Binary (One, Zero))
 
 type Input = Binary
 type Output = Binary
