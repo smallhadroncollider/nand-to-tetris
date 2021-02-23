@@ -1,0 +1,46 @@
+name:                nand-to-tetris
+version:             0.1.0.0
+github:              "smallhadroncollider/nand-to-tetris"
+license:             BSD3
+author:              "Mark Wales / Small Hadron Collider"
+maintainer:          "mark@smallhadroncollider.com"
+copyright:           "2021 Mark Wales / Small Hadron Collider"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/nand-to-tetris#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+default-extensions:
+- NoImplicitPrelude
+
+library:
+  source-dirs: src
+
+tests:
+  nand-to-tetris-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - nand-to-tetris
+    - text
+    - tasty
+    - tasty-discover
+    - tasty-expected-failure
+    - tasty-hunit
+    default-extensions:
+    - OverloadedStrings

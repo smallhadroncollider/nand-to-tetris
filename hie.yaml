@@ -1,0 +1,7 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "nand-to-tetris:lib"
+
+    - path: "./test"
+      component: "nand-to-tetris:nand-to-tetris-test"

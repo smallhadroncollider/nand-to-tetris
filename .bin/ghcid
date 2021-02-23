@@ -1,0 +1,1 @@
+~/.local/bin/ghcid --command "stack ghci nand-to-tetris:lib nand-to-tetris:test:nand-to-tetris-test --ghci-options=-w --ghci-options=-fobject-code" --test "main"
