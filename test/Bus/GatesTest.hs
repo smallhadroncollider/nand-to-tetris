@@ -1,5 +1,5 @@
-module BusGatesTest
-    ( test_bus_gates
+module Bus.GatesTest
+    ( test_gates
     ) where
 
 import Test.Tasty
@@ -16,10 +16,10 @@ import Bus.Gates
 -- 65535: 1111111111111111
 
 -- tests
-test_bus_gates :: TestTree
-test_bus_gates =
+test_gates :: TestTree
+test_gates =
     testGroup
-        "BusGates"
+        "Bus.Gates"
         [ testGroup "Bus16"
             [ testGroup "not16"
                 [ testCase "all 0s" (assertEqual "all 1s" (bus16 65535) (not16 (bus16 0)))

@@ -1,4 +1,4 @@
-module GatesTest
+module Bit.GatesTest
     ( test_gates
     ) where
 
@@ -12,7 +12,7 @@ import Bit.Gates
 test_gates :: TestTree
 test_gates =
     testGroup
-        "Gates"
+        "Bit.Gates"
         [ testGroup "nand"
             [ testCase "0 0" (assertEqual "1" (bit "1") (bit "0" `nand` bit "0"))
             , testCase "0 1" (assertEqual "1" (bit "1") (bit "0" `nand` bit "1"))
