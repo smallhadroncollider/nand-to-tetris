@@ -7,6 +7,8 @@ module Bus.Gates
     , or8Way
     , mux4Way16
     , mux8Way16
+    , dmux4Way
+    , dmux8Way
     ) where
 
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
@@ -124,3 +126,25 @@ mux4Way16 a b c d sel1 sel2 =
 mux8Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Selector -> Bus16Output
 mux8Way16 a b c d e f g h sel1 sel2 sel3 =
     mux16 (mux16 (mux16 (mux16 (mux16 (mux16 (mux16 a b sel3) c sel2) d (sel2 `and` sel3)) e sel1) f (sel1 `and` sel3)) g (sel1 `and` sel2)) h (sel1 `and` sel2 `and` sel3)
+
+
+-- demultiplexors
+dmux4Way :: Selector -> Selector -> Input -> (Output, Output, Output, Output)
+dmux4Way sel1 sel2 value =
+    ( not sel1 `and` not sel2 `and` value
+    , not sel1 `and` sel2 `and` value
+    , sel1 `and` not sel2 `and` value
+    , sel1 `and` sel2 `and` value
+    )
+
+dmux8Way :: Selector -> Selector -> Selector -> Input -> (Output, Output, Output, Output, Output, Output, Output, Output)
+dmux8Way sel1 sel2 sel3 value =
+    ( not sel1 `and` not sel2 `and` not sel3 `and` value
+    , not sel1 `and` not sel2 `and` sel3 `and` value
+    , not sel1 `and` sel2 `and` not sel3 `and` value
+    , not sel1 `and` sel2 `and` sel3 `and` value
+    , sel1 `and` not sel2 `and` not sel3 `and` value
+    , sel1 `and` not sel2 `and` sel3 `and` value
+    , sel1 `and` sel2 `and` not sel3 `and` value
+    , sel1 `and` sel2 `and` sel3 `and` value
+    )

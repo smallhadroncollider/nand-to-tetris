@@ -170,4 +170,98 @@ test_bus_gates =
                     )
                 ]
             ]
+        , testGroup "Demultiplexors"
+            [ testGroup "dmux4Way"
+                [ testCase "first off" (assertEqual "0" (bit "0", bit "0", bit "0", bit "0") (dmux4Way (bit "0") (bit "0") (bit "0")))
+                , testCase "first on" (assertEqual "1" (bit "1", bit "0", bit "0", bit "0") (dmux4Way (bit "0") (bit "0") (bit "1")))
+                , testCase "second off" (assertEqual "0" (bit "0", bit "0", bit "0", bit "0") (dmux4Way (bit "0") (bit "1") (bit "0")))
+                , testCase "second on" (assertEqual "1" (bit "0", bit "1", bit "0", bit "0") (dmux4Way (bit "0") (bit "1") (bit "1")))
+                , testCase "third off" (assertEqual "0" (bit "0", bit "0", bit "0", bit "0") (dmux4Way (bit "0") (bit "1") (bit "0")))
+                , testCase "third on" (assertEqual "1" (bit "0", bit "0", bit "1", bit "0") (dmux4Way (bit "1") (bit "0") (bit "1")))
+                , testCase "fourth off" (assertEqual "0" (bit "0", bit "0", bit "0", bit "0") (dmux4Way (bit "0") (bit "1") (bit "0")))
+                , testCase "fourth on" (assertEqual "1" (bit "0", bit "0", bit "0", bit "1") (dmux4Way (bit "1") (bit "1") (bit "1")))
+                ]
+            , testGroup "dmux8Way"
+                [ testCase "first off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "0") (bit "0"))
+                    )
+                , testCase "first on"
+                    (assertEqual "1"
+                        (bit "1", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "0") (bit "1"))
+                    )
+                , testCase "second off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "second on"
+                    (assertEqual "1"
+                        (bit "0", bit "1", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "1") (bit "1"))
+                    )
+                , testCase "third off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "third on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "1", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "1") (bit "0") (bit "1"))
+                    )
+                , testCase "fourth off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "fourth on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "0", bit "1", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "0") (bit "1") (bit "1") (bit "1"))
+                    )
+                , testCase "fifth off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "0") (bit "0"))
+                    )
+                , testCase "fifth on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "0", bit "0", bit "1", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "0") (bit "1"))
+                    )
+                , testCase "sixth off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "sixth on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "1", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "1") (bit "1"))
+                    )
+                , testCase "seventh off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "seventh on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "1", bit "0")
+                        (dmux8Way (bit "1") (bit "1") (bit "0") (bit "1"))
+                    )
+                , testCase "eigth off"
+                    (assertEqual "0"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0")
+                        (dmux8Way (bit "1") (bit "0") (bit "1") (bit "0"))
+                    )
+                , testCase "eigth on"
+                    (assertEqual "1"
+                        (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "0", bit "1")
+                        (dmux8Way (bit "1") (bit "1") (bit "1") (bit "1"))
+                    )
+                ]
+            ]
         ]

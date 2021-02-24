@@ -7,6 +7,7 @@ module Bit.Gates
     , mux
     , dmux
     , Selector
+    , Input
     , Output
     ) where
 
