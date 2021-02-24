@@ -3,7 +3,7 @@ module ALU.Adders
     , fullAdder
     , add16
     , inc16
-    )where
+    ) where
 
 import Bit.Data (Binary (Zero))
 import Bit.Gates (Input, Output, xor, and, or)
