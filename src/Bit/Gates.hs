@@ -7,6 +7,7 @@ module Bit.Gates
     , mux
     , dmux
     , Selector
+    , Output
     ) where
 
 import Bit.Data (Binary (One, Zero))

@@ -3,35 +3,37 @@ module Bus.Gates
     , and16
     , or16
     , mux16
+    , or8Way
     ) where
 
-import Bus.Data (Bus16 (Bus16))
+import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
 import Bit.Gates
 
+-- bus16 gates
 type Bus16Input = Bus16
 type Bus16Output = Bus16
 
 not16 :: Bus16Input -> Bus16Output
 not16
-    (Bus16 a b c d e f g h i j k l m n o p)
+    (Bus16 i0 i1 i2 i3 i4 i5 i6 i7 i8 i9 i10 i11 i12 i13 i14 i15)
     =
     Bus16
-        (not a)
-        (not b)
-        (not c)
-        (not d)
-        (not e)
-        (not f)
-        (not g)
-        (not h)
-        (not i)
-        (not j)
-        (not k)
-        (not l)
-        (not m)
-        (not n)
-        (not o)
-        (not p)
+        (not i0)
+        (not i1)
+        (not i2)
+        (not i3)
+        (not i4)
+        (not i5)
+        (not i6)
+        (not i7)
+        (not i8)
+        (not i9)
+        (not i10)
+        (not i11)
+        (not i12)
+        (not i13)
+        (not i14)
+        (not i15)
 
 and16 :: Bus16Input -> Bus16Input -> Bus16Output
 and16
@@ -102,3 +104,10 @@ mux16
         (mux a13 b13 sel)
         (mux a14 b14 sel)
         (mux a15 b15 sel)
+
+
+-- bus8 gates
+type Bus8Input = Bus8
+
+or8Way :: Bus8Input -> Output
+or8Way (Bus8 i0 i1 i2 i3 i4 i5 i6 i7) = i0 `or` i1 `or` i2 `or` i3 `or` i4 `or` i5 `or` i6 `or` i7
