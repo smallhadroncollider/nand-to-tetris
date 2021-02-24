@@ -8,13 +8,6 @@ import Test.Tasty.HUnit
 import Util
 import Bus.Gates
 
--- number reference
--- ================
--- 255: 11111111
--- 32768: 1000000000000000
--- 32769: 1000000000000001
--- 65535: 1111111111111111
-
 -- tests
 test_gates :: TestTree
 test_gates =
@@ -22,22 +15,23 @@ test_gates =
         "Bus.Gates"
         [ testGroup "Bus16"
             [ testGroup "not16"
-                [ testCase "all 0s" (assertEqual "all 1s" (bus16 65535) (not16 (bus16 0)))
+                [ testCase "all 0s" (assertEqual "all 1s" (bus16 (-1)) (not16 (bus16 0)))
                 ]
             , testGroup "and16"
                 [ testCase "all 0s" (assertEqual "all 0s" (bus16 0) (bus16 0 `and16` bus16 0))
-                , testCase "some 1s" (assertEqual "all 0s" (bus16 0) (bus16 32769 `and16` bus16 0))
-                , testCase "some 1s" (assertEqual "some 1s" (bus16 32769) (bus16 32769  `and16` bus16 32769))
-                , testCase "all 1s" (assertEqual "all 1s" (bus16 65535) (bus16 65535 `and16` bus16 65535))
+                , testCase "some 1s" (assertEqual "all 0s" (bus16 0) (bus16 12 `and16` bus16 0))
+                , testCase "some 1s" (assertEqual "some 1s" (bus16 12) (bus16 12  `and16` bus16 12))
+                , testCase "some 1s" (assertEqual "some 1s" (bus16 4) (bus16 4  `and16` bus16 12))
+                , testCase "all 1s" (assertEqual "all 1s" (bus16 (-1)) (bus16 (-1) `and16` bus16 (-1)))
                 ]
             , testGroup "or16"
                 [ testCase "all 0s" (assertEqual "all 0s" (bus16 0) (bus16 0 `or16` bus16 0))
-                , testCase "some 1s" (assertEqual "some 1s" (bus16 32769) (bus16 32768 `or16` bus16 1))
-                , testCase "all 1s" (assertEqual "all 1s" (bus16 65535) (bus16 65535 `or16` bus16 65535))
+                , testCase "some 1s" (assertEqual "some 1s" (bus16 13) (bus16 12 `or16` bus16 1))
+                , testCase "all 1s" (assertEqual "all 1s" (bus16 (-1)) (bus16 (-1) `or16` bus16 (-1)))
                 ]
             , testGroup "mux16"
-                [ testCase "all 0s" (assertEqual "all 0s" (bus16 0) (mux16 (bus16 0) (bus16 65535) (bit "0")))
-                , testCase "all 0s" (assertEqual "all 0s" (bus16 65535) (mux16 (bus16 0) (bus16 65535) (bit "1")))
+                [ testCase "all 0s" (assertEqual "all 0s" (bus16 0) (mux16 (bus16 0) (bus16 (-1)) (bit "0")))
+                , testCase "all 0s" (assertEqual "all 0s" (bus16 (-1)) (mux16 (bus16 0) (bus16 (-1)) (bit "1")))
                 ]
             ]
         , testGroup "Bus8"
@@ -45,7 +39,7 @@ test_gates =
                 [ testCase "all 0s" (assertEqual "0" (bit "0") (or8Way (bus8 0)))
                 , testCase "some 1s" (assertEqual "1" (bit "1") (or8Way (bus8 8)))
                 , testCase "some 1s" (assertEqual "1" (bit "1") (or8Way (bus8 1)))
-                , testCase "all 1s" (assertEqual "1" (bit "1") (or8Way (bus8 255)))
+                , testCase "all 1s" (assertEqual "1" (bit "1") (or8Way (bus8 (-1))))
                 ]
             ]
         , testGroup "Multiplexors"

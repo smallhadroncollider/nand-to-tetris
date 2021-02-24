@@ -3,6 +3,7 @@ module Util
     ( bit
     , bus8
     , bus16
+    , toBinaryText
     ) where
 
 import Prelude
@@ -35,7 +36,9 @@ toBinary :: Int -> Text
 toBinary n = pack $ showIntAtBase 2 intToDigit n ""
 
 toBinaryText :: Int -> Int -> Text
-toBinaryText n len = justifyRight len '0' (toBinary n)
+toBinaryText n len
+    | n < (2 ^ (len - 1)) && n >= 0 = justifyRight len '0' (toBinary n)
+    | n >= (-(2 ^ (len - 1))) && n < 0 = toBinary ((2 ^ len) + n)
 
 
 -- bus8

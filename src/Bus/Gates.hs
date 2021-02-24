@@ -8,6 +8,8 @@ module Bus.Gates
     , mux8Way16
     , dmux4Way
     , dmux8Way
+    , Bus16Input
+    , Bus16Output
     ) where
 
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
@@ -119,12 +121,20 @@ or8Way (Bus8 i0 i1 i2 i3 i4 i5 i6 i7) = i0 `or` i1 `or` i2 `or` i3 `or` i4 `or` 
 
 -- multiplexors
 mux4Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Bus16Output
-mux4Way16 a b c d sel1 sel2 =
-    mux16 (mux16 (mux16 a b sel2) c sel1) d (sel1 `and` sel2)
+mux4Way16 a b c d sel1 sel2 = gate3
+    where gate1 = mux16 a b sel2
+          gate2 = mux16 gate1 c sel1
+          gate3 = mux16 gate2 d (sel1 `and` sel2)
 
 mux8Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Selector -> Bus16Output
-mux8Way16 a b c d e f g h sel1 sel2 sel3 =
-    mux16 (mux16 (mux16 (mux16 (mux16 (mux16 (mux16 a b sel3) c sel2) d (sel2 `and` sel3)) e sel1) f (sel1 `and` sel3)) g (sel1 `and` sel2)) h (sel1 `and` sel2 `and` sel3)
+mux8Way16 a b c d e f g h sel1 sel2 sel3 = gate7
+    where gate1 = mux16 a b sel3
+          gate2 = mux16 gate1 c sel2
+          gate3 = mux16 gate2 d (sel2 `and` sel3)
+          gate4 = mux16 gate3 e sel1
+          gate5 = mux16 gate4 f (sel1 `and` sel3)
+          gate6 = mux16 gate5 g (sel1 `and` sel2)
+          gate7 = mux16 gate6 h (sel1 `and` sel2 `and` sel3)
 
 
 -- demultiplexors
