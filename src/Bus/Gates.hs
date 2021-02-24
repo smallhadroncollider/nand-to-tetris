@@ -1,9 +1,12 @@
+{-# OPTIONS_GHC -Wno-unused-matches #-}
 module Bus.Gates
     ( not16
     , and16
     , or16
     , mux16
     , or8Way
+    , mux4Way16
+    , mux8Way16
     ) where
 
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
@@ -111,3 +114,13 @@ type Bus8Input = Bus8
 
 or8Way :: Bus8Input -> Output
 or8Way (Bus8 i0 i1 i2 i3 i4 i5 i6 i7) = i0 `or` i1 `or` i2 `or` i3 `or` i4 `or` i5 `or` i6 `or` i7
+
+
+-- multiplexors
+mux4Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Bus16Output
+mux4Way16 a b c d sel1 sel2 =
+    mux16 (mux16 (mux16 a b sel2) c sel1) d (sel1 `and` sel2)
+
+mux8Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Selector -> Bus16Output
+mux8Way16 a b c d e f g h sel1 sel2 sel3 =
+    mux16 (mux16 (mux16 (mux16 (mux16 (mux16 (mux16 a b sel3) c sel2) d (sel2 `and` sel3)) e sel1) f (sel1 `and` sel3)) g (sel1 `and` sel2)) h (sel1 `and` sel2 `and` sel3)
