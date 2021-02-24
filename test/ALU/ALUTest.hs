@@ -20,6 +20,9 @@ test_alu =
                     (aluBasic
                         (bus16 12) (bus16 34)
                         (bit "1") (bit "0") (bit "1") (bit "0") (bit "1") (bit "0")
+                    --  Also 0 with
+                    --  (bit "1") (bit "0") (bit "1") (bit "1") (bit "0") (bit "0")
+                    --  (bit "1") (bit "1") (bit "1") (bit "0") (bit "0") (bit "0")
                     )
                 )
             , testCase "1"
@@ -36,6 +39,10 @@ test_alu =
                     (aluBasic
                         (bus16 12) (bus16 34)
                         (bit "1") (bit "1") (bit "1") (bit "0") (bit "1") (bit "0")
+                    --  Also -1 with
+                    --  (bit "1") (bit "1") (bit "1") (bit "1") (bit "0") (bit "0")
+                    --  (bit "1") (bit "0") (bit "1") (bit "0") (bit "0") (bit "1")
+                    --  (bit "1") (bit "0") (bit "1") (bit "1") (bit "1") (bit "0")
                     )
                 )
             , testCase "x"
