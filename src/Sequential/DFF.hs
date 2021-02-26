@@ -1,7 +1,14 @@
-module Sequential.DFF where
+module Sequential.DFF
+    ( dff
+    , get
+    , put
+    , return
+    , runState
+    , Sequential
+    ) where
 
 import Control.Applicative ((<*))
-import Control.Monad.State.Strict (State, get, put)
+import Control.Monad.State.Strict (State, get, put, return, runState)
 
 import Bit.Gates (Input, Output)
 

@@ -6,14 +6,16 @@ module Util
     , toBinaryText
     ) where
 
-import Prelude
+import Prelude (Eq, Show, Int, Bool (True, False), (==), ($), (<), (^), (-), (&&), (>=), (+), (<$>), (!!), concat, show)
 import Numeric (showIntAtBase)
 import Data.Char (intToDigit)
+import Data.List (intercalate)
 
 import Data.Text (Text, chunksOf, pack, justifyRight)
 
 import Bit.Data (Binary (One, Zero))
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
+import Sequential.RAM (Memory8 (Memory8))
 
 
 -- binary
@@ -69,3 +71,11 @@ bus16FromText values = Bus16 (ls !! 0) (ls !! 1) (ls !! 2) (ls !! 3) (ls !! 4) (
 
 bus16 :: Int -> Bus16
 bus16 n = bus16FromText $ toBinaryText n 16
+
+
+-- memory 8
+instance Eq Memory8 where
+    (Memory8 a0 a1 a2 a3 a4 a5 a6 a7) == (Memory8 b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+
+instance Show Memory8 where
+    show (Memory8 i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])

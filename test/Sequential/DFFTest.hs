@@ -5,8 +5,6 @@ module Sequential.DFFTest
 import Test.Tasty
 import Test.Tasty.HUnit
 
-import Control.Monad.State.Strict (runState)
-
 import Util
 import Sequential.DFF
 

@@ -1,8 +1,6 @@
 module Sequential.Registers where
 
-import Control.Monad.State.Strict (return, get, put, runState)
-
-import Sequential.DFF (Sequential, dff);
+import Sequential.DFF (Sequential, dff, get, put, return, runState);
 import Bit.Gates (Input, Output, Selector, mux)
 import Bus.Data (Bus16 (Bus16))
 import Bus.Gates (Bus16Input, Bus16Output)
