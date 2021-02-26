@@ -3,5 +3,8 @@ cradle:
     - path: "./src"
       component: "nand-to-tetris:lib"
 
+    - path: "./io"
+      component: "nand-to-tetris:lib"
+
     - path: "./test"
       component: "nand-to-tetris:nand-to-tetris-test"

@@ -26,7 +26,12 @@ default-extensions:
 - NoImplicitPrelude
 
 library:
-  source-dirs: src
+  source-dirs:
+  - src
+  - io
+  dependencies:
+  - text
+  - split
 
 tests:
   nand-to-tetris-test:
