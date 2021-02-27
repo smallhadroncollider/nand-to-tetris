@@ -1,18 +1,30 @@
 module Sequential.DFF
     ( dff
-    , get
-    , put
-    , return
-    , runState
+    , read
+    , write
+    , output
+    , state
     , Sequential
     ) where
 
 import Control.Applicative ((<*))
-import Control.Monad.State.Strict (State, get, put, return, runState)
+import Control.Monad.State.Strict (MonadState, State, get, put, return, runState)
 
 import Bit.Gates (Input, Output)
 
-type Sequential a s = State a s
+type Sequential s a = State s a
+
+output :: a -> Sequential s a
+output = return
+
+read :: MonadState s m => m s
+read = get
+
+write :: MonadState s m => s -> m ()
+write = put
+
+state :: Sequential s a -> s -> (a, s)
+state = runState
 
 dff :: Input -> State Output Output
-dff value = get <* put value
+dff value = read <* put value
