@@ -16,6 +16,12 @@ empty = Memory8 bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus1
 two :: Memory8
 two = Memory8 bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero
 
+empty64 :: Memory64
+empty64 = Memory64 empty empty empty empty empty empty empty empty
+
+two64 :: Memory64
+two64 = Memory64 empty two empty empty empty empty empty empty
+
 -- tests
 test_ram :: TestTree
 test_ram =
@@ -27,5 +33,10 @@ test_ram =
             , testCase "" (assertEqual "" (bus16 2, two) (state (ram8 (bus16 484) (bit "0", bit "0", bit "1") (bit "0")) two))
             , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 2) (bit "0", bit "1", bit "0") (bit "1")) empty))
             , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero (bus16 30843)) (state (ram8 (bus16 30843) (bit "1", bit "1", bit "1") (bit "1")) empty))
+            ]
+        , testGroup "ram64"
+            [ testCase "" (assertEqual "" (bus16 0, empty64) (state (ram64 (bus16 0) (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0") (bit "0")) empty64))
+            , testCase "" (assertEqual "" (bus16 0, two64) (state (ram64 (bus16 2) (bit "0", bit "0", bit "1", bit "0", bit "0", bit "1") (bit "1")) empty64))
+            , testCase "" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) (bit "0", bit "0", bit "1", bit "0", bit "0", bit "1") (bit "0")) two64))
             ]
         ]

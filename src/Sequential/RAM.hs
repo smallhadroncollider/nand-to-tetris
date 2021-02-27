@@ -32,3 +32,30 @@ ram8 bus (a, b, c) load
         -- read
         let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
         output o
+
+
+data Memory64 = Memory64 Memory8 Memory8 Memory8 Memory8 Memory8 Memory8 Memory8 Memory8
+
+ram64 :: Bus16Input -> (Selector, Selector, Selector, Selector, Selector, Selector) -> Load -> Sequential Memory64 Bus16Output
+ram64 bus (a, b, c, e, f, g) load
+    = do
+        -- current state
+        (Memory64 m0 m1 m2 m3 m4 m5 m6 m7) <- read
+
+        -- write
+        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+
+        let (o0, s0) = state (ram8 bus (e, f, g) l0) m0
+        let (o1, s1) = state (ram8 bus (e, f, g) l1) m1
+        let (o2, s2) = state (ram8 bus (e, f, g) l2) m2
+        let (o3, s3) = state (ram8 bus (e, f, g) l3) m3
+        let (o4, s4) = state (ram8 bus (e, f, g) l4) m4
+        let (o5, s5) = state (ram8 bus (e, f, g) l5) m5
+        let (o6, s6) = state (ram8 bus (e, f, g) l6) m6
+        let (o7, s7) = state (ram8 bus (e, f, g) l7) m7
+
+        write (Memory64 s0 s1 s2 s3 s4 s5 s6 s7)
+
+        -- read
+        let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        output o

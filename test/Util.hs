@@ -15,7 +15,7 @@ import Data.Text (Text, chunksOf, pack, justifyRight)
 
 import Bit.Data (Binary (One, Zero))
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
-import Sequential.RAM (Memory8 (Memory8))
+import Sequential.RAM (Memory8 (Memory8), Memory64 (Memory64))
 
 
 -- binary
@@ -79,3 +79,11 @@ instance Eq Memory8 where
 
 instance Show Memory8 where
     show (Memory8 i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
+
+
+-- memory 64
+instance Eq Memory64 where
+    (Memory64 a0 a1 a2 a3 a4 a5 a6 a7) == (Memory64 b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+
+instance Show Memory64 where
+    show (Memory64 i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
