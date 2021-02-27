@@ -1,9 +1,10 @@
 {-# OPTIONS_GHC -Wno-orphans -Wno-incomplete-patterns #-}
 module Util
-    ( bit
-    , bus8
+    ( bus8
     , bus16
     , toBinaryText
+    , _0
+    , _1
     ) where
 
 import Prelude (Eq, Show, Int, Bool (True, False), (==), ($), (<), (^), (-), (&&), (>=), (+), (<$>), (!!), concat, show)
@@ -27,6 +28,12 @@ instance Eq Binary where
 instance Show Binary where
     show Zero = "0"
     show One  = "1"
+
+_0 :: Binary
+_0 = Zero
+
+_1 :: Binary
+_1 = One
 
 bit :: Text -> Binary
 bit "0" = Zero

@@ -14,9 +14,9 @@ test_dff =
     testGroup
         "Sequential.DFF"
         [ testGroup "dff"
-            [ testCase "" (assertEqual "" (bit "0", bit "0") (state (dff (bit "0")) (bit "0")))
-            , testCase "" (assertEqual "" (bit "1", bit "0") (state (dff (bit "0")) (bit "1")))
-            , testCase "" (assertEqual "" (bit "0", bit "1") (state (dff (bit "1")) (bit "0")))
-            , testCase "" (assertEqual "" (bit "1", bit "1") (state (dff (bit "1")) (bit "1")))
+            [ testCase "" (assertEqual "" (_0, _0) (state (dff _0) _0))
+            , testCase "" (assertEqual "" (_1, _0) (state (dff _0) _1))
+            , testCase "" (assertEqual "" (_0, _1) (state (dff _1) _0))
+            , testCase "" (assertEqual "" (_1, _1) (state (dff _1) _1))
             ]
         ]

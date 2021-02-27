@@ -28,15 +28,15 @@ test_ram =
     testGroup
         "Sequential.RAM"
         [ testGroup "ram8"
-            [ testCase "" (assertEqual "" (bus16 0, empty) (state (ram8 (bus16 0) (bit "0", bit "0", bit "0") (bit "0")) empty))
-            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 2) (bit "0", bit "0", bit "1") (bit "1")) empty))
-            , testCase "" (assertEqual "" (bus16 2, two) (state (ram8 (bus16 484) (bit "0", bit "0", bit "1") (bit "0")) two))
-            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 2) (bit "0", bit "1", bit "0") (bit "1")) empty))
-            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero (bus16 30843)) (state (ram8 (bus16 30843) (bit "1", bit "1", bit "1") (bit "1")) empty))
+            [ testCase "" (assertEqual "" (bus16 0, empty) (state (ram8 (bus16 0) (_0, _0, _0) _0) empty))
+            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 2) (_0, _0, _1) _1) empty))
+            , testCase "" (assertEqual "" (bus16 2, two) (state (ram8 (bus16 484) (_0, _0, _1) _0) two))
+            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero (bus16 2) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 2) (_0, _1, _0) _1) empty))
+            , testCase "" (assertEqual "" (bus16 0, Memory8 bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero (bus16 30843)) (state (ram8 (bus16 30843) (_1, _1, _1) _1) empty))
             ]
         , testGroup "ram64"
-            [ testCase "" (assertEqual "" (bus16 0, empty64) (state (ram64 (bus16 0) (bit "0", bit "0", bit "0", bit "0", bit "0", bit "0") (bit "0")) empty64))
-            , testCase "" (assertEqual "" (bus16 0, two64) (state (ram64 (bus16 2) (bit "0", bit "0", bit "1", bit "0", bit "0", bit "1") (bit "1")) empty64))
-            , testCase "" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) (bit "0", bit "0", bit "1", bit "0", bit "0", bit "1") (bit "0")) two64))
+            [ testCase "" (assertEqual "" (bus16 0, empty64) (state (ram64 (bus16 0) (_0, _0, _0, _0, _0, _0) _0) empty64))
+            , testCase "" (assertEqual "" (bus16 0, two64) (state (ram64 (bus16 2) (_0, _0, _1, _0, _0, _1) _1) empty64))
+            , testCase "" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) (_0, _0, _1, _0, _0, _1) _0) two64))
             ]
         ]
