@@ -18,7 +18,7 @@ ram8 bus (a, b, c) load
         (Memory8 m0 m1 m2 m3 m4 m5 m6 m7) <- read
 
         -- write
-        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way a b c load
 
         let (o0, s0) = state (register bus l0) m0
         let (o1, s1) = state (register bus l1) m1
@@ -32,7 +32,7 @@ ram8 bus (a, b, c) load
         write (Memory8 s0 s1 s2 s3 s4 s5 s6 s7)
 
         -- read
-        let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        let o = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 a b c
         output o
 
 
@@ -45,7 +45,7 @@ ram64 bus (a, b, c, e, f, g) load
         (Memory64 m0 m1 m2 m3 m4 m5 m6 m7) <- read
 
         -- write
-        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way a b c load
 
         let (o0, s0) = state (ram8 bus (e, f, g) l0) m0
         let (o1, s1) = state (ram8 bus (e, f, g) l1) m1
@@ -59,7 +59,7 @@ ram64 bus (a, b, c, e, f, g) load
         write (Memory64 s0 s1 s2 s3 s4 s5 s6 s7)
 
         -- read
-        let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        let o = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 a b c
         output o
 
 
@@ -72,7 +72,7 @@ ram512 bus (a, b, c, e, f, g, h, i, j) load
         (Memory512 m0 m1 m2 m3 m4 m5 m6 m7) <- read
 
         -- write
-        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way a b c load
 
         let (o0, s0) = state (ram64 bus (e, f, g, h, i, j) l0) m0
         let (o1, s1) = state (ram64 bus (e, f, g, h, i, j) l1) m1
@@ -86,7 +86,7 @@ ram512 bus (a, b, c, e, f, g, h, i, j) load
         write (Memory512 s0 s1 s2 s3 s4 s5 s6 s7)
 
         -- read
-        let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        let o = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 a b c
         output o
 
 
@@ -99,7 +99,7 @@ ram4K bus (a, b, c, e, f, g, h, i, j, k, l, m) load
         (Memory4K m0 m1 m2 m3 m4 m5 m6 m7) <- read
 
         -- write
-        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way a b c load
 
         let (o0, s0) = state (ram512 bus (e, f, g, h, i, j, k, l, m) l0) m0
         let (o1, s1) = state (ram512 bus (e, f, g, h, i, j, k, l, m) l1) m1
@@ -113,7 +113,7 @@ ram4K bus (a, b, c, e, f, g, h, i, j, k, l, m) load
         write (Memory4K s0 s1 s2 s3 s4 s5 s6 s7)
 
         -- read
-        let o = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        let o = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 a b c
         output o
 
 
@@ -127,7 +127,7 @@ ram16K bus (a, b, c, e, f, g, h, i, j, k, l, m, n, o, p) load
         (Memory16K m0 m1 m2 m3 m4 m5 m6 m7) <- read
 
         -- write
-        let (l0, l1, l2, l3, l4, l5, l6, l7) = dmux8Way a b c load
+        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way a b c load
 
         let (o0, s0) = state (ram4K bus (e, f, g, h, i, j, k, l, m, n, o, p) l0) m0
         let (o1, s1) = state (ram4K bus (e, f, g, h, i, j, k, l, m, n, o, p) l1) m1
@@ -141,5 +141,5 @@ ram16K bus (a, b, c, e, f, g, h, i, j, k, l, m, n, o, p) load
         write (Memory16K s0 s1 s2 s3 s4 s5 s6 s7)
 
         -- read
-        let out = mux8Way16 o0 o1 o2 o3 o4 o5 o6 o7 a b c
+        let out = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 a b c
         output out
