@@ -53,13 +53,13 @@ test_ram =
             , testCase "8 Write 30843" (assertEqual "" (bus16 0, Memory8 (bus16 30843) bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero bus16Zero) (state (ram8 (bus16 30843) (_1, _1, _1) _1) empty))
             ]
         , testGroup "ram64"
-            [ testCase "64 empty" (assertEqual "" (bus16 0, empty64) (state (ram64 (bus16 0) (_0, _0, _0, _0, _0, _0) _0) empty64))
-            , testCase "64 Write Two" (assertEqual "" (bus16 0, two64) (state (ram64 (bus16 2) (_0, _0, _1, _0, _0, _1) _1) empty64))
-            , testCase "64 Read Two" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) (_0, _0, _1, _0, _0, _1) _0) two64))
+            [ testCase "64 empty" (assertEqual "" (bus16 0, empty64) (state (ram64 (bus16 0) ((_0, _0, _0), (_0, _0, _0)) _0) empty64))
+            , testCase "64 Write Two" (assertEqual "" (bus16 0, two64) (state (ram64 (bus16 2) ((_0, _0, _1), (_0, _0, _1)) _1) empty64))
+            , testCase "64 Read Two" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) ((_0, _0, _1), (_0, _0, _1)) _0) two64))
             ]
         , testGroup "ram16K"
-            [ testCase "16K empty" (assertEqual "" (bus16 0, empty16K) (state (ram16K (bus16 0) (_0, _0, _0, _0, _0, _0, _0, _0, _0, _0, _0, _0, _0, _0, _0) _0) empty16K))
-            , testCase "16K Write Two" (assertEqual "" (bus16 0, two16K) (state (ram16K (bus16 2) (_0, _1, _1, _0, _0, _1, _0, _0, _1, _0, _0, _1, _0, _0, _1) _1) empty16K))
-            , testCase "16K Read Two" (assertEqual "" (bus16 2, two16K) (state (ram16K (bus16 2) (_0, _1, _1, _0, _0, _1, _0, _0, _1, _0, _0, _1, _0, _0, _1) _0) two16K))
+            [ testCase "16K empty" (assertEqual "" (bus16 0, empty16K) (state (ram16K (bus16 0) ((_0, _0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0)) _0) empty16K))
+            , testCase "16K Write Two" (assertEqual "" (bus16 0, two16K) (state (ram16K (bus16 2) ((_0, _1, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _1) empty16K))
+            , testCase "16K Read Two" (assertEqual "" (bus16 2, two16K) (state (ram16K (bus16 2) ((_0, _1, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _0) two16K))
             ]
         ]

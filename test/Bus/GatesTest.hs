@@ -44,10 +44,10 @@ test_gates =
             ]
         , testGroup "Multiplexors"
             [ testGroup "mux4Way16"
-                [ testCase "first" (assertEqual "first input" (bus16 0) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) _0 _0))
-                , testCase "second" (assertEqual "second input" (bus16 1) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) _0 _1))
-                , testCase "third" (assertEqual "third input" (bus16 2) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) _1 _0))
-                , testCase "fourth" (assertEqual "fourth input" (bus16 3) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) _1 _1))
+                [ testCase "first" (assertEqual "first input" (bus16 0) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) (_0, _0)))
+                , testCase "second" (assertEqual "second input" (bus16 1) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) (_0, _1)))
+                , testCase "third" (assertEqual "third input" (bus16 2) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) (_1, _0)))
+                , testCase "fourth" (assertEqual "fourth input" (bus16 3) (mux4Way16 (bus16 0) (bus16 1) (bus16 2) (bus16 3) (_1, _1)))
                 ]
             , testGroup "mux8Way16"
                 [ testCase "first"
@@ -61,7 +61,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _0 _0 _0
+                            (_0, _0, _0)
                         )
                     )
                 , testCase "second"
@@ -75,7 +75,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _0 _0 _1
+                            (_0, _0, _1)
                         )
                     )
                 , testCase "third"
@@ -89,7 +89,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _0 _1 _0
+                            (_0, _1, _0)
                         )
                     )
                 , testCase "fourth"
@@ -103,7 +103,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _0 _1 _1
+                            (_0, _1, _1)
                         )
                     )
                 , testCase "fifth"
@@ -117,7 +117,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _1 _0 _0
+                            (_1, _0, _0)
                         )
                     )
                 , testCase "sixth"
@@ -131,7 +131,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _1 _0 _1
+                            (_1, _0, _1)
                         )
                     )
                 , testCase "seventh"
@@ -145,7 +145,7 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _1 _1 _0
+                            (_1, _1, _0)
                         )
                     )
                 , testCase "eigth"
@@ -159,102 +159,102 @@ test_gates =
                             (bus16 5)
                             (bus16 6)
                             (bus16 7)
-                            _1 _1 _1
+                            (_1, _1, _1)
                         )
                     )
                 ]
             ]
         , testGroup "Demultiplexors"
             [ testGroup "dmux4Way"
-                [ testCase "first off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way _0 _0 _0))
-                , testCase "first on" (assertEqual "1" (_1, _0, _0, _0) (dmux4Way _0 _0 _1))
-                , testCase "second off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way _0 _1 _0))
-                , testCase "second on" (assertEqual "1" (_0, _1, _0, _0) (dmux4Way _0 _1 _1))
-                , testCase "third off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way _0 _1 _0))
-                , testCase "third on" (assertEqual "1" (_0, _0, _1, _0) (dmux4Way _1 _0 _1))
-                , testCase "fourth off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way _0 _1 _0))
-                , testCase "fourth on" (assertEqual "1" (_0, _0, _0, _1) (dmux4Way _1 _1 _1))
+                [ testCase "first off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way (_0, _0) _0))
+                , testCase "first on" (assertEqual "1" (_1, _0, _0, _0) (dmux4Way (_0, _0) _1))
+                , testCase "second off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way (_0, _1) _0))
+                , testCase "second on" (assertEqual "1" (_0, _1, _0, _0) (dmux4Way (_0, _1) _1))
+                , testCase "third off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way (_0, _1) _0))
+                , testCase "third on" (assertEqual "1" (_0, _0, _1, _0) (dmux4Way (_1, _0) _1))
+                , testCase "fourth off" (assertEqual "0" (_0, _0, _0, _0) (dmux4Way (_0, _1) _0))
+                , testCase "fourth on" (assertEqual "1" (_0, _0, _0, _1) (dmux4Way (_1, _1) _1))
                 ]
             , testGroup "dmux8Way"
                 [ testCase "first off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _0 _0)
+                        (dmux8Way (_0, _0, _0) _0)
                     )
                 , testCase "first on"
                     (assertEqual "1"
                         (_1, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _0 _1)
+                        (dmux8Way (_0, _0, _0) _1)
                     )
                 , testCase "second off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _1 _0)
+                        (dmux8Way (_0, _0, _1) _0)
                     )
                 , testCase "second on"
                     (assertEqual "1"
                         (_0, _1, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _1 _1)
+                        (dmux8Way (_0, _0, _1) _1)
                     )
                 , testCase "third off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _1 _0)
+                        (dmux8Way (_0, _0, _1) _0)
                     )
                 , testCase "third on"
                     (assertEqual "1"
                         (_0, _0, _1, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _1 _0 _1)
+                        (dmux8Way (_0, _1, _0) _1)
                     )
                 , testCase "fourth off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _0 _0 _1 _0)
+                        (dmux8Way (_0, _0, _1) _0)
                     )
                 , testCase "fourth on"
                     (assertEqual "1"
                         (_0, _0, _0, _1, _0, _0, _0, _0)
-                        (dmux8Way _0 _1 _1 _1)
+                        (dmux8Way (_0, _1, _1) _1)
                     )
                 , testCase "fifth off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _1 _0 _0 _0)
+                        (dmux8Way (_1, _0, _0) _0)
                     )
                 , testCase "fifth on"
                     (assertEqual "1"
                         (_0, _0, _0, _0, _1, _0, _0, _0)
-                        (dmux8Way _1 _0 _0 _1)
+                        (dmux8Way (_1, _0, _0) _1)
                     )
                 , testCase "sixth off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _1 _0 _1 _0)
+                        (dmux8Way (_1, _0, _1) _0)
                     )
                 , testCase "sixth on"
                     (assertEqual "1"
                         (_0, _0, _0, _0, _0, _1, _0, _0)
-                        (dmux8Way _1 _0 _1 _1)
+                        (dmux8Way (_1, _0, _1) _1)
                     )
                 , testCase "seventh off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _1 _0 _1 _0)
+                        (dmux8Way (_1, _0, _1) _0)
                     )
                 , testCase "seventh on"
                     (assertEqual "1"
                         (_0, _0, _0, _0, _0, _0, _1, _0)
-                        (dmux8Way _1 _1 _0 _1)
+                        (dmux8Way (_1, _1, _0) _1)
                     )
                 , testCase "eigth off"
                     (assertEqual "0"
                         (_0, _0, _0, _0, _0, _0, _0, _0)
-                        (dmux8Way _1 _0 _1 _0)
+                        (dmux8Way (_1, _0, _1) _0)
                     )
                 , testCase "eigth on"
                     (assertEqual "1"
                         (_0, _0, _0, _0, _0, _0, _0, _1)
-                        (dmux8Way _1 _1 _1 _1)
+                        (dmux8Way (_1, _1, _1) _1)
                     )
                 ]
             ]

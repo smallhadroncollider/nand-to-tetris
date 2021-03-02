@@ -10,6 +10,8 @@ module Bus.Gates
     , dmux8Way
     , Bus16Input
     , Bus16Output
+    , Selector2
+    , Selector3
     ) where
 
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
@@ -120,14 +122,18 @@ or8Way (Bus8 i0 i1 i2 i3 i4 i5 i6 i7) = i0 `or` i1 `or` i2 `or` i3 `or` i4 `or` 
 
 
 -- multiplexors
-mux4Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Bus16Output
-mux4Way16 a b c d sel1 sel2 = gate3
+type Selector2 = (Selector, Selector)
+
+mux4Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector2 -> Bus16Output
+mux4Way16 a b c d (sel1, sel2) = gate3
     where gate1 = mux16 a b sel2
           gate2 = mux16 gate1 c sel1
           gate3 = mux16 gate2 d (sel1 `and` sel2)
 
-mux8Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector -> Selector -> Selector -> Bus16Output
-mux8Way16 a b c d e f g h sel1 sel2 sel3 = gate7
+type Selector3 = (Selector, Selector, Selector)
+
+mux8Way16 :: Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Bus16Input -> Selector3 -> Bus16Output
+mux8Way16 a b c d e f g h (sel1, sel2, sel3) = gate7
     where gate1 = mux16 a b sel3
           gate2 = mux16 gate1 c sel2
           gate3 = mux16 gate2 d (sel2 `and` sel3)
@@ -138,16 +144,16 @@ mux8Way16 a b c d e f g h sel1 sel2 sel3 = gate7
 
 
 -- demultiplexors
-dmux4Way :: Selector -> Selector -> Input -> (Output, Output, Output, Output)
-dmux4Way sel1 sel2 value =
+dmux4Way :: Selector2 -> Input -> (Output, Output, Output, Output)
+dmux4Way (sel1, sel2) value =
     ( not sel1 `and` not sel2 `and` value
     , not sel1 `and` sel2 `and` value
     , sel1 `and` not sel2 `and` value
     , sel1 `and` sel2 `and` value
     )
 
-dmux8Way :: Selector -> Selector -> Selector -> Input -> (Output, Output, Output, Output, Output, Output, Output, Output)
-dmux8Way sel1 sel2 sel3 value =
+dmux8Way :: Selector3 -> Input -> (Output, Output, Output, Output, Output, Output, Output, Output)
+dmux8Way (sel1, sel2, sel3) value =
     ( not sel1 `and` not sel2 `and` not sel3 `and` value
     , not sel1 `and` not sel2 `and` sel3 `and` value
     , not sel1 `and` sel2 `and` not sel3 `and` value
