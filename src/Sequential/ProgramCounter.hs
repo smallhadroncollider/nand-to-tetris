@@ -2,7 +2,7 @@ module Sequential.ProgramCounter where
 
 import Sequential.DFF (Sequential, read, write, output, state);
 import Sequential.Registers (Load, register)
-import Bit.Gates (Selector, mux, not)
+import Bit.Gates (Selector, not, or, and)
 import Bus.Data (bus16Zero)
 import Bus.Gates (Bus16Input, Bus16Output, mux16)
 import ALU.Adders (inc16)
@@ -16,15 +16,14 @@ pc input increment load reset = do
         bus <- read
 
         -- should reset
-        let res = mux16 input bus16Zero reset
+        let i1 = mux16 input bus16Zero reset
 
         -- should increment
-        let shouldInc = mux (mux increment (not load) load) (not reset) reset
-        let res' = mux16 res (inc16 bus) shouldInc
+        let i2 = mux16 i1 (inc16 bus) (increment `and` not (reset `or` load))
 
         -- store in register
-        let load' = mux (mux load reset reset) increment increment -- needs to load if resetting/incrementing
-        let (out, st) = state (register res' load') bus
+        let load' = load `or` reset `or` increment
+        let (out, st) = state (register i2 load') bus
 
         -- update state monad
         write st
