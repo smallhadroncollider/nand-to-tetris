@@ -27,4 +27,4 @@ state :: Sequential s a -> s -> (a, s)
 state = runState
 
 dff :: Input -> State Output Output
-dff value = read <* put value
+dff value = read <* write value

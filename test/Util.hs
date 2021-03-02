@@ -16,7 +16,7 @@ import Data.Text (Text, chunksOf, pack, justifyRight)
 
 import Bit.Data (Binary (One, Zero))
 import Bus.Data (Bus16 (Bus16), Bus8 (Bus8))
-import Sequential.RAM (Memory8 (Memory8), Memory64 (Memory64))
+import Sequential.RAM
 
 
 -- binary
@@ -94,3 +94,27 @@ instance Eq Memory64 where
 
 instance Show Memory64 where
     show (Memory64 i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
+
+
+-- memory 512
+instance Eq Memory512 where
+    (Memory512 a0 a1 a2 a3 a4 a5 a6 a7) == (Memory512 b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+
+instance Show Memory512 where
+    show (Memory512 i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
+
+
+-- memory 4k
+instance Eq Memory4K where
+    (Memory4K a0 a1 a2 a3 a4 a5 a6 a7) == (Memory4K b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+
+instance Show Memory4K where
+    show (Memory4K i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
+
+
+-- memory 16k
+instance Eq Memory16K where
+    (Memory16K a0 a1 a2 a3 a4 a5 a6 a7) == (Memory16K b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+
+instance Show Memory16K where
+    show (Memory16K i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
