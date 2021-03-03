@@ -4,7 +4,7 @@ import Sequential.DFF (Sequential, read, write, output, state);
 import Sequential.Registers (Load, register)
 
 import Bus.Data (Bus16)
-import Bus.Gates (Bus16Input, Bus16Output, Selector3, mux8Way16, dmux8Way)
+import Bus.Gates (Bus16Input, Bus16Output, Selector2, Selector3, mux8Way16, mux4Way16, dmux8Way, dmux4Way)
 
 type Memory m = Sequential m Bus16Output
 
@@ -117,28 +117,24 @@ ram4K bus (sel1, sel2, sel3, sel4) load
 
 
 
-data Memory16K = Memory16K Memory4K Memory4K Memory4K Memory4K Memory4K Memory4K Memory4K Memory4K
+data Memory16K = Memory16K Memory4K Memory4K Memory4K Memory4K
 
-ram16K :: Bus16Input -> (Selector3, Selector3, Selector3, Selector3, Selector3) -> Load -> Memory Memory16K
+ram16K :: Bus16Input -> (Selector2, Selector3, Selector3, Selector3, Selector3) -> Load -> Memory Memory16K
 ram16K bus (sel1, sel2, sel3, sel4, sel5) load
     = do
         -- current state
-        (Memory16K m0 m1 m2 m3 m4 m5 m6 m7) <- read
+        (Memory16K m0 m1 m2 m3) <- read
 
         -- write
-        let (l7, l6, l5, l4, l3, l2, l1, l0) = dmux8Way sel1 load
+        let (l3, l2, l1, l0) = dmux4Way sel1 load
 
         let (o0, s0) = state (ram4K bus (sel2, sel3, sel4, sel5) l0) m0
         let (o1, s1) = state (ram4K bus (sel2, sel3, sel4, sel5) l1) m1
         let (o2, s2) = state (ram4K bus (sel2, sel3, sel4, sel5) l2) m2
         let (o3, s3) = state (ram4K bus (sel2, sel3, sel4, sel5) l3) m3
-        let (o4, s4) = state (ram4K bus (sel2, sel3, sel4, sel5) l4) m4
-        let (o5, s5) = state (ram4K bus (sel2, sel3, sel4, sel5) l5) m5
-        let (o6, s6) = state (ram4K bus (sel2, sel3, sel4, sel5) l6) m6
-        let (o7, s7) = state (ram4K bus (sel2, sel3, sel4, sel5) l7) m7
 
-        write (Memory16K s0 s1 s2 s3 s4 s5 s6 s7)
+        write (Memory16K s0 s1 s2 s3)
 
         -- read
-        let out = mux8Way16 o7 o6 o5 o4 o3 o2 o1 o0 sel1
+        let out = mux4Way16 o3 o2 o1 o0 sel1
         output out

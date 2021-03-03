@@ -35,10 +35,10 @@ two4K :: Memory4K
 two4K = Memory4K empty512 empty512 empty512 empty512 empty512 empty512 two512 empty512
 
 empty16K :: Memory16K
-empty16K = Memory16K empty4K empty4K empty4K empty4K empty4K empty4K empty4K empty4K
+empty16K = Memory16K empty4K empty4K empty4K empty4K
 
 two16K :: Memory16K
-two16K = Memory16K empty4K empty4K empty4K empty4K two4K  empty4K empty4K empty4K
+two16K = Memory16K empty4K empty4K two4K empty4K
 
 -- tests
 test_ram :: TestTree
@@ -58,8 +58,8 @@ test_ram =
             , testCase "64 Read Two" (assertEqual "" (bus16 2, two64) (state (ram64 (bus16 2) ((_0, _0, _1), (_0, _0, _1)) _0) two64))
             ]
         , testGroup "ram16K"
-            [ testCase "16K empty" (assertEqual "" (bus16 0, empty16K) (state (ram16K (bus16 0) ((_0, _0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0)) _0) empty16K))
-            , testCase "16K Write Two" (assertEqual "" (bus16 0, two16K) (state (ram16K (bus16 2) ((_0, _1, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _1) empty16K))
-            , testCase "16K Read Two" (assertEqual "" (bus16 2, two16K) (state (ram16K (bus16 2) ((_0, _1, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _0) two16K))
+            [ testCase "16K empty" (assertEqual "" (bus16 0, empty16K) (state (ram16K (bus16 0) ((_0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0), (_0, _0, _0)) _0) empty16K))
+            , testCase "16K Write Two" (assertEqual "" (bus16 0, two16K) (state (ram16K (bus16 2) ((_0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _1) empty16K))
+            , testCase "16K Read Two" (assertEqual "" (bus16 2, two16K) (state (ram16K (bus16 2) ((_0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1), (_0, _0, _1)) _0) two16K))
             ]
         ]

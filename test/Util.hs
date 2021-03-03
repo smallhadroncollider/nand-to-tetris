@@ -114,7 +114,7 @@ instance Show Memory4K where
 
 -- memory 16k
 instance Eq Memory16K where
-    (Memory16K a0 a1 a2 a3 a4 a5 a6 a7) == (Memory16K b0 b1 b2 b3 b4 b5 b6 b7) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3) && (a4 == b4) && (a5 == b5) && (a6 == b6) && (a7 == b7)
+    (Memory16K a0 a1 a2 a3) == (Memory16K b0 b1 b2 b3) = (a0 == b0) && (a1 == b1) && (a2 == b2) && (a3 == b3)
 
 instance Show Memory16K where
-    show (Memory16K i0 i1 i2 i3 i4 i5 i6 i7) = intercalate " / " (show <$> [i0, i1, i2, i3, i4, i5, i6, i7])
+    show (Memory16K i0 i1 i2 i3) = intercalate " / " (show <$> [i0, i1, i2, i3])
