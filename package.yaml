@@ -33,6 +33,22 @@ library:
   - text
   - split
 
+executables:
+  ntetris:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - base
+    - nand-to-tetris
+    - brick
+    - vty
+    default-extensions:
+    - OverloadedStrings
+
 tests:
   nand-to-tetris-test:
     main:                Spec.hs

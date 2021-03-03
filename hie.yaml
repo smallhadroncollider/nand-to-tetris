@@ -1,5 +1,8 @@
 cradle:
   stack:
+    - path: "./app"
+      component: "nand-to-tetris"
+
     - path: "./src"
       component: "nand-to-tetris:lib"
 
